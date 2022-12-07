@@ -19,8 +19,9 @@ import (
 func main() {
 	log.Printf("Server started")
 
-	PetsApiService := openapi.NewPetsApiService()
-	PetsApiController := openapi.NewPetsApiController(PetsApiService)
+	// PetsApiService := openapi.NewPetsApiService()
+	PetsApiMockService := openapi.NewPetsApiMockService()
+	PetsApiController := openapi.NewPetsApiController(PetsApiMockService)
 
 	router := openapi.NewRouter(PetsApiController)
 

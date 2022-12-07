@@ -11,8 +11,9 @@ package openapi
 
 import (
 	"context"
-	"net/http"
 	"errors"
+	"net/http"
+	"strconv"
 )
 
 // PetsApiService is a service that implements the logic for the PetsApiServicer
@@ -64,6 +65,14 @@ func (s *PetsApiService) ShowPetById(ctx context.Context, petId string) (ImplRes
 
 	//TODO: Uncomment the next line to return response Response(0, Error{}) or use other options such as http.Ok ...
 	//return Response(0, Error{}), nil
+	id, err := strconv.Atoi(petId)
+	if err != nil {
+		return Response(http.StatusInternalServerError, nil), err
+	}
 
-	return Response(http.StatusNotImplemented, nil), errors.New("ShowPetById method not implemented")
+	var data Pet
+	data, _ = GetPetsData(int64(id))
+	return Response(http.StatusOK, data), nil
+
+	// return Response(http.StatusNotImplemented, nil), errors.New("ShowPetById method not implemented")
 }
